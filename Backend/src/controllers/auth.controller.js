@@ -63,9 +63,9 @@ async function loginUser(req, res) {
         });
     }
 
-    const token = jwt.sign({ id: user._id, role: user.role },process.env.JWT_PRIVATE_KEY);
+    const token = jwt.sign({ id: user._id, role: user.role },process.env.JWT_PRIVATE_KEY, { expiresIn: "7d" });
 
-    res.cookie("token", token);
+    res.cookie("token", token, { httpOnly: true, secure: true, sameSite: "none", maxAge: 7 * 24 * 60 * 60 * 1000, path: "/" });
 
     res.status(201).json({
         message: "User Logged in Successfully",
