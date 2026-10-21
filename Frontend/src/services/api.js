@@ -3,7 +3,7 @@ import axios from 'axios';
 export const TOKEN_KEY = 'auth_token';
 
 const api = axios.create({
-  baseURL: import.meta.env.API_BASE_URL || 'https://wavify-ec9l.onrender.com/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'https://wavify-ec9l.onrender.com/api',
   // Cookie sessions need this. The backend CORS config must allow credentials.
   withCredentials: import.meta.env.VITE_USE_COOKIES !== 'false',
   timeout: 20000,
