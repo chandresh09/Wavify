@@ -8,9 +8,8 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://wavify-nu.vercel.app/",
+    origin: "https://wavify-nu.vercel.app",
     credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"]
   })
 );
 
