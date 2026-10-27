@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Disc3, Home, LayoutDashboard, AudioLines, PlusCircle, User, MessageSquareText, LogOut } from 'lucide-react';
+import { Disc3, Home, LayoutDashboard, AudioLines, PlusCircle, User, MessageSquareText, LogOut, ListMusic } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export default function Sidebar() {
@@ -32,6 +32,10 @@ export default function Sidebar() {
         )}
         {user?.role == "user" && (
           <>
+            <NavLink to="/albums" end title="Albums" className="sidebar-link">
+              <ListMusic size={22} />
+              <span>Albums</span>
+            </NavLink>
             <NavLink to="/support" end title="Support" className="sidebar-link">
               <MessageSquareText size={22} />
               <span>Support</span>

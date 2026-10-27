@@ -11,6 +11,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AlbumDetails from './pages/AlbumDetails';
+import Albums from './pages/Albums';
 import ArtistDashboard from './pages/ArtistDashboard';
 import CreateMusic from './pages/CreateMusic';
 import CreateAlbum from './pages/CreateAlbum';
@@ -37,6 +38,7 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/support" element={<Support />} />
+            <Route path="/albums" element={<Albums />} />
             <Route path="/albums/:albumId" element={<AlbumDetails />} />
             <Route path="/dashboard" element={<ProtectedRoute role="artist"><ArtistDashboard /></ProtectedRoute>} />
             <Route path="/dashboard/music/new" element={<ProtectedRoute role="artist"><CreateMusic /></ProtectedRoute>} />

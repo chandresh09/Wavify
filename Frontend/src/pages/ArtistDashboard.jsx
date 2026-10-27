@@ -42,7 +42,7 @@ export default function ArtistDashboard() {
           <h2 className="section-title">Albums created on this device</h2>
           <ul className="link-list">
             {createdAlbums.map((album) => (
-              <li key={album.id}><Link to={`/albums/${album.id}`}>{album.title}</Link></li>
+              <li key={album.id} className="albumn-box"><Link to={`/albums/${album.id}`}>{album.title}</Link></li>
             ))}
           </ul>
         </section>

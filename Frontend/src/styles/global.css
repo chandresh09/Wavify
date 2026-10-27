@@ -259,9 +259,11 @@ h1, h2, h3 { line-height: 1.2; }
 .stat { padding: var(--space-4) var(--space-5); background: var(--panel); border: 1px solid var(--border-soft); border-radius: var(--radius); display: flex; flex-direction: column; }
 .stat strong { font-size: 1.8rem; font-weight: 500; color: var(--primary-light); }
 .stat span { color: var(--muted); font-size: 0.82rem; }
-.link-list { display: flex; flex-direction: column; gap: var(--space-2); }
-.link-list a { color: var(--primary-light); }
+.link-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--space-2); }
+.link-list a { color: #ffffff; }
 .link-list a:hover { text-decoration: underline; }
+
+.albumn-box { background: linear-gradient(135deg, rgb(75, 63, 214), rgb(27, 23, 96)); padding: 12px 14px; border-radius: var(--radius-sm) }
 
 /* ---------- Player ---------- */
 .player {

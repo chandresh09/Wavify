@@ -51,6 +51,11 @@ export async function fetchAllMusic() {
   return firstArray(data, ['musics', 'music', 'tracks', 'songs', 'data']).map((t) => normalizeTrack(t));
 }
 
+export async function fetchAllAlbums() {
+  const { data } = await api.get('/music/albums/');
+  return firstArray(data, ['albums']);
+}
+
 export async function fetchAlbum(albumId) {
   const { data } = await api.get(`/music/albums/${encodeURIComponent(albumId)}`);
   const raw = data?.album || data?.data || data;

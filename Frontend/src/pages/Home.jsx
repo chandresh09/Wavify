@@ -47,6 +47,7 @@ export default function Home() {
 
   const recent = useMemo(() => sortRecent(tracks), [tracks]);
   const albums = useMemo(() => collectAlbums(tracks), [tracks]);
+  console.log("Albums",albums);
   const results = useMemo(() => {
     if (!query) return [];
     return tracks.filter((t) =>
