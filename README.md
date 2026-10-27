@@ -41,7 +41,7 @@ The repository has two parts:
 
 **For logged-in users and artists**
 - Browse the music library, recently added tracks and search by title or artist.
-- Open an album and play its tracks.
+- **Albums page** (sidebar, next to Home): see every album with its title and artist, open one and play its tracks.
 - Persistent music player with play/pause, previous/next, seek bar, current time and duration, and volume control.
 - Logging out stops playback, clears the loaded music and returns to Home.
 
@@ -54,6 +54,7 @@ The repository has two parts:
 **UI**
 - Dark navy and indigo design based on the reference mockup.
 - Fully responsive: the sidebar becomes a bottom tab bar on phones, and the player adapts to small screens.
+- Sidebar navigation with Home, Albums, Support and Log out (a bottom tab bar on phones).
 - Loading skeletons, empty states, error messages with retry, and toast notifications.
 
 ---
@@ -109,7 +110,7 @@ Wavify/
         ├── App.jsx                # Layout and routes
         ├── components/            # Navbar, Sidebar, Footer, MusicPlayer, MusicCard, AlbumCard,
         │                          # Carousel, LoginBanner, PopularArtists, ProtectedRoute, ...
-        ├── pages/                 # Home, Login, Register, AlbumDetails, ArtistDashboard,
+        ├── pages/                 # Home, Albums, AlbumDetails, Login, Register, ArtistDashboard,
         │                          # CreateMusic, CreateAlbum, Support, NotFound
         ├── context/               # AuthContext, MusicPlayerContext, ToastContext
         ├── services/              # api.js (Axios), authService, musicService, supportService
@@ -185,8 +186,8 @@ The backend allows requests only from `http://localhost:5173` (see `Backend/src/
 
 1. Go to **Sign up** and create an account with the **Artist** role.
 2. Open the **Dashboard**, then **Create music** and upload an audio file.
-3. Optionally create an album from your tracks.
-4. Register a second account as a **Listener** to check the regular-user experience.
+3. Optionally create an album from your tracks, then find it under **Albums** in the sidebar.
+4. Register a second account as a **Listener** to check the regular-user experience, including the Albums page.
 
 ---
 
@@ -278,7 +279,7 @@ You can send `username` instead of `email`. Responses: `201` with `{ message, us
 | GET | `/music/` | user or artist | List music (currently the first 10 tracks) |
 | POST | `/music/create` | artist | Upload a track (multipart form) |
 | POST | `/music/album` | artist | Create an album |
-| GET | `/music/albums` | user or artist | List albums (`title` and `artist` only) |
+| GET | `/music/albums` | user or artist | List albums (`title` and `artist` only). Used by the Albums page |
 | GET | `/music/albums/:albumId` | user or artist | Get one album with its tracks |
 
 **GET `/music/`** returns:
@@ -309,6 +310,19 @@ The file is uploaded to ImageKit (folder `/music`) and the returned URL is saved
 
 Response `201`: `{ message, album: { id, title, musics, artist } }`.
 
+**GET `/music/albums`** returns:
+
+```json
+{
+  "message": "Albums Fetched Successfully",
+  "albums": [
+    { "_id": "…", "title": "My Album", "artist": { "_id": "…", "username": "jane", "email": "jane@example.com" } }
+  ]
+}
+```
+
+The list has no tracks, so open an album with the next endpoint to get its tracks.
+
 **GET `/music/albums/:albumId`** returns `{ message, album }`, where `album.musics` is populated with full track documents and `album.artist` with `username` and `email`.
 
 ### Error responses
@@ -326,7 +340,7 @@ Response `201`: `{ message, album: { id, title, musics, artist } }`.
 - On login or register the server signs a JWT containing `{ id, role }` and sets it in a cookie named `token`.
 - `authUser` middleware allows both `user` and `artist`. `authArtist` allows only `artist`. Permissions are enforced on the server.
 - The server returns no "current user" endpoint, so the frontend stores the user object from the login response in `localStorage` and uses it only to show or hide UI. A `401` response clears that stored session and shows a "session expired" message.
-- Music routes require login, so logged-out visitors never request `/music/`. They see the login banner instead.
+- Music and album routes require login, so logged-out visitors never request them. They see the login banner instead.
 
 ---
 
@@ -337,7 +351,8 @@ Response `201`: `{ message, album: { id, title, musics, artist } }`.
 | `/` | Everyone | Home. Login banner when logged out; music library when logged in |
 | `/login` | Everyone | Login |
 | `/register` | Everyone | Register (Listener or Artist) |
-| `/albums/:albumId` | Logged in | Album details and track list |
+| `/albums` | Logged in | Albums page: all albums, each card opens its details |
+| `/albums/:albumId` | Logged in | Album details and track list, with play controls |
 | `/support` | Everyone | Support page with contact form |
 | `/dashboard` | Artist | Artist dashboard |
 | `/dashboard/music/new` | Artist | Create music |
@@ -360,9 +375,9 @@ Response `201`: `{ message, album: { id, title, musics, artist } }`.
 **Not connected yet**
 - **Support form**: the form validates input and shows a success message, but `Frontend/src/services/supportService.js` is a placeholder that sends nothing. Replace its body with an `api.post(...)` call once the endpoint exists.
 - **Popular Artists**: static names and images in `Frontend/src/data/popularArtists.js`, with no click action. Replace with an API call when an artists endpoint exists.
-- **`GET /music/albums`** exists on the backend, but the frontend does not use it yet. The Home page only shows albums that it can infer from tracks, and the dashboard lists albums created from the same browser.
 
 **Backend behavior to be aware of**
+- `GET /music/albums` returns only each album's title and artist, so album cards on the Albums page have no track count, and they show a generated gradient placeholder instead of a cover image.
 - `GET /music/` returns at most **10 tracks** (`.limit(10)`), so Home shows at most 10. Add pagination if the library grows.
 - **Create music works with file upload only.** The "Audio URL" mode in the Create Music form is not supported by `POST /music/create`, which expects a `music` file.
 - Tracks have no cover image field, so cards show a generated gradient placeholder.
