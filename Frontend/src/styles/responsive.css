@@ -73,7 +73,7 @@
   .dashboard-actions { width: 100%; }
   /* .dashboard-actions .btn { flex: 1; } */
   .track-row .badge { display: none; }
-  .footer { flex-direction: column; }
+  .footer { flex-direction: column; gap: var(--space-6); }
 }
 
 /* Short landscape phones */
