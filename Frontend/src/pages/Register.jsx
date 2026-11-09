@@ -102,7 +102,7 @@ export default function Register() {
           {ROLES.map(({ value, label, text, Icon }) => (
             <label key={value} className={`role-option ${form.role === value ? 'selected' : ''}`}>
               <input type="radio" name="role" value={value} checked={form.role === value} onChange={handleChange} />
-              <Icon size={20} />
+              <Icon size={24} />
               <span><strong>{label}</strong><small>{text}</small></span>
             </label>
           ))}
