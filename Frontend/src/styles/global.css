@@ -300,7 +300,7 @@ h1, h2, h3 { line-height: 1.2; }
 .toast button { margin-left: auto; color: var(--muted); display: grid; }
 
 /* ---------- Footer, 404 ---------- */
-.footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-5); padding: var(--space-5) var(--page-pad); background: var(--bg-deep); color: var(--muted); font-size: 0.85rem; }
+.footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-5); padding: var(--space-5) var(--page-pad); background: var(--bg-deep); color: var(--muted); font-size: 0.92rem; }
 .footer h2 { color: #fff; font-size: 1.25rem; }
 .footer-links { display: flex; flex-direction: column; gap: var(--space-4); }
 .footer-logo { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-1); }
@@ -312,7 +312,7 @@ h1, h2, h3 { line-height: 1.2; }
 .not-found { text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--space-3); padding: var(--space-6) 0; }
 .not-found-code { font-size: clamp(4rem, 16vw, 8rem); font-weight: 700; line-height: 1; color: var(--primary-light); }
 .not-found .btn { margin-top: var(--space-3); }
-.footer-socialmedia { display: flex; gap: var(--space-4); margin-top: var(--space-5); }
+.footer-socialmedia { display: flex; gap: var(--space-5); margin-top: var(--space-5); }
 .footer-socialmedia span svg { fill: var(--muted); height: 20px; width: 20px; transition: 0.3s ease; cursor: pointer; }
 .footer-socialmedia span svg:hover { fill: var(--text); transform: scale(1.1); }
 
